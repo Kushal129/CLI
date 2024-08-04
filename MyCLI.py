@@ -1,16 +1,20 @@
-import sys , subprocess , os
+import sys
+import subprocess
+import os
+import time
 from colorama import init, Fore, Style
 
-def display_welcome_message():
-    # Initialize colorama
-    init()
+# Initialize colorama
+init()
 
+def display_welcome_message():
     print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
     print(f"{Fore.BLUE}Welcome to the Cybersecurity Command Tool [KP].{Style.RESET_ALL}")
     print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
     print(f"{Fore.YELLOW}Available commands:{Style.RESET_ALL}")
-    print(f"  {Fore.GREEN}shwcmd{Style.RESET_ALL}   - Show all available commands")
-    print(f"  {Fore.GREEN}exit{Style.RESET_ALL}   - Exit the tool")
+    print(f"    {Fore.GREEN}iam{Style.RESET_ALL} - Developer Intro")
+    print(f"    {Fore.GREEN}shwcmd{Style.RESET_ALL} - Show all available commands")
+    print(f"    {Fore.GREEN}exit{Style.RESET_ALL} - Exit the tool")
     print(f"{Fore.YELLOW}Type a command and press Enter:{Style.RESET_ALL}")
 
 def show_all_commands():
@@ -22,21 +26,30 @@ def show_wifi_commands():
     print(f"  {Fore.GREEN}wifi_jammer{Style.RESET_ALL}   - Wifi Jammer ")
     print(f"  {Fore.GREEN}fullano{Style.RESET_ALL} - Complete Anonymous ")
     print(f"  {Fore.GREEN}exit{Style.RESET_ALL}   - Exit the tool")
-    
-    
+
 def process_command(cmd):
     cmd = cmd.lower()
-    if cmd == 'scan':
-        print('Running network scan...')
+    
+    if cmd == 'iam':
+        intro_text = f"""
+{Fore.CYAN}Hi, I'm Kushal Pipalya, a {Fore.GREEN}cybersecurity enthusiast{Fore.CYAN} and {Fore.YELLOW}developer.{Style.RESET_ALL}
+{Fore.CYAN}I specialize in creating {Fore.MAGENTA}command-line tools{Fore.CYAN} and exploring {Fore.RED}cybersecurity concepts.{Style.RESET_ALL}
+{Fore.CYAN}Feel free to ask me about various tools and techniques.{Style.RESET_ALL}
+        """
+        typing_speed = 0.05
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        for char in intro_text:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(typing_speed)
+        print()
         
     elif cmd == 'shwcmd':
         show_all_commands()
         print('-----------------------------------------------------')
         
-    elif cmd == 'analyze':
-        print('Analyzing logs...')
-        
-    #  -----------------     WIFI section   ----------------------
     elif cmd == 'wifi':
         show_wifi_commands()
         print('-----------------------------------------------------')
@@ -49,8 +62,9 @@ def process_command(cmd):
         print(f"  {Fore.LIGHTMAGENTA_EX} Running Full Anonymous setup...! {Style.RESET_ALL}")
         run_fullAnonymous()
 
-   
-
+    elif cmd in ['clear', 'clr']:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
     elif cmd in ['exit', 'quit']:
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
         print(f"{Fore.CYAN}Thank you for using the Cybersecurity Command Tool!{Style.RESET_ALL}")
@@ -59,10 +73,8 @@ def process_command(cmd):
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
         sys.exit()
     else:
-        print(f"  {Fore.RED} Unknown command try agin..! {Style.RESET_ALL}")
-        
-        
-        
+        print(f"  {Fore.RED} Unknown command try again..! {Style.RESET_ALL}")
+
 def run_wifi_jammer():
     try:
         # Step 1: Check if mdk3 is installed
@@ -109,10 +121,9 @@ def run_wifi_jammer():
 
     except subprocess.CalledProcessError as e:
         print(f"Error running Wi-Fi jammer script: {e}")
-        
+
 def run_fullAnonymous():
-    
-    choice  = input('Do you want Execute Script enter - (1) or Show the steps enter (2): ')
+    choice = input('Do you want to execute the script? Enter (1) or show the steps? Enter (2): ')
     if choice == '1':
         print('Using AnonGT...')
 
@@ -168,33 +179,29 @@ def run_fullAnonymous():
             print(result.stdout)
         except subprocess.CalledProcessError as e:
             print(f"Error running AnonGT command: {e}")
-            
+
     elif choice == '2':
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
         print(f"        {Fore.YELLOW}Showing the steps to set up AnonGT: {Style.RESET_ALL}")
-        print(f"{Fore.RED}NOTE: You In Super User. {Style.RESET_ALL} ")
+        print(f"{Fore.RED}NOTE: You are in Super User mode. {Style.RESET_ALL}")
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}S-1.{Style.RESET_ALL} If Not install AnonGT ?")
+        print(f"{Fore.GREEN}S-1.{Style.RESET_ALL} If AnonGT is not installed?")
         print(f"  {Fore.BLUE}git clone https://github.com/gt0day/AnonGT.git {Style.RESET_ALL}")
         print("")
-        print(f"{Fore.GREEN}S-2.{Style.RESET_ALL} Now go in AnonGT folder run sudo bash install.sh")
+        print(f"{Fore.GREEN}S-2.{Style.RESET_ALL} Go to the AnonGT folder and run: sudo bash install.sh")
         print("")
-        print("- After successfully installation use can use AnonGT")
-        print(f"- defult help menu : {Fore.LIGHTCYAN_EX} sudo anongt {Style.RESET_ALL}")
-        print(f"     Ex: {Fore.LIGHTCYAN_EX} sudo anongt start {Style.RESET_ALL} or {Fore.LIGHTCYAN_EX} sudo anongt stop {Style.RESET_ALL}")
+        print("- After successful installation, you can use AnonGT.")
+        print(f"- Default help menu: {Fore.LIGHTCYAN_EX} sudo anongt {Style.RESET_ALL}")
+        print(f"     Example: {Fore.LIGHTCYAN_EX} sudo anongt start {Style.RESET_ALL} or {Fore.LIGHTCYAN_EX} sudo anongt stop {Style.RESET_ALL}")
         print("")
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
     else:
         print('Invalid choice. Please enter 1 or 2.')
 
 def main():
-    display_welcome_message()
-    
     while True:
-        # Get user input
-        user_input = input()
-        
-        # Process the input command
+        display_welcome_message()
+        user_input = input(f"{Fore.GREEN}-> {Style.RESET_ALL}")
         process_command(user_input)
 
 if __name__ == '__main__':
