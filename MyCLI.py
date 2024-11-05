@@ -6,7 +6,7 @@ import requests
 import signal
 import logging
 from colorama import init, Fore, Style
-from Functions import run_fullAnonymous, run_wifi_jammer, subdomainfinder
+from Functions import run_fullAnonymous, run_wifi_jammer, subdomainfinder , help
 
 # Define color codes
 WHITE = "\033[0;37m"
@@ -30,6 +30,7 @@ def display_welcome_message():
     print(f"{Fore.YELLOW}Available commands:{Style.RESET_ALL}")
     print(f"    {Fore.GREEN}iam{Style.RESET_ALL} - Developer Intro")
     print(f"    {Fore.GREEN}showcmd{Style.RESET_ALL} - Show all available commands")
+    print(f"    {Fore.GREEN}help{Style.RESET_ALL} - Help")
     print(f"    {Fore.GREEN}exit{Style.RESET_ALL} - Exit the tool")
     print(f"{Fore.YELLOW}Type a command and press Enter:{Style.RESET_ALL}")
 
@@ -112,6 +113,9 @@ def process_command(cmd):
         create_responsive_box(content)
         print()
 
+    elif cmd in ["h" , "madad" , "help"]:
+        help()
+        print("-----------------------------------------------------")
     elif cmd in ["showcmd", "ls", "show", "option"]:
         show_all_commands()
         print("-----------------------------------------------------")
