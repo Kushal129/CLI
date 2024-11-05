@@ -113,9 +113,10 @@ def process_command(cmd):
         create_responsive_box(content)
         print()
 
-    elif cmd in ["h" , "madad" , "help"]:
+    elif cmd in ["h", "madad", "help"]:
         help()
         print("-----------------------------------------------------")
+
     elif cmd in ["showcmd", "ls", "show", "option"]:
         show_all_commands()
         print("-----------------------------------------------------")
