@@ -6,6 +6,7 @@ def help():
     # Initialize colorama
     init(autoreset=True)
 
+    
     def display_options():
         print(f"{Fore.CYAN}{Style.BRIGHT}Choose an option:")
         print(f"{Fore.YELLOW}1. {Fore.GREEN}Information Gathering")
@@ -15,7 +16,17 @@ def help():
         print(f"{Fore.YELLOW}5. {Fore.GREEN}Exploitation")
         print(f"{Fore.YELLOW}6. {Fore.GREEN}Web Application Assessment")
         print(f"{Fore.YELLOW}7. {Fore.GREEN}Forensics")
+        print(f"{Fore.YELLOW}8. {Fore.GREEN}Network Security Tools")
+        print(f"{Fore.YELLOW}9. {Fore.GREEN}Vulnerability Assessment Tools")
+        print(f"{Fore.YELLOW}10. {Fore.GREEN}Penetration Testing Tools")
+        print(f"{Fore.YELLOW}11. {Fore.GREEN}Malware Analysis Tools")
+        print(f"{Fore.YELLOW}12. {Fore.GREEN}Endpoint Security Tools")
+        print(f"{Fore.YELLOW}13. {Fore.GREEN}SIEM Tools")
+        print(f"{Fore.YELLOW}14. {Fore.GREEN}Identity and Access Management Tools")
+        print(f"{Fore.YELLOW}15. {Fore.GREEN}Data Loss Prevention Tools")
+        print(f"{Fore.YELLOW}16. {Fore.GREEN}Web Application Security Tools")
         print(f"{Fore.RED}99. {Fore.GREEN}Exit")
+
 
     def clear_console():
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -118,6 +129,62 @@ def help():
         print(f"{Fore.YELLOW}    > Plaso: A digital forensics and incident response tool")
         print(f"{Fore.YELLOW}    > Rekall: A digital forensics and incident response tool")
 
+    def show_network_security_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Network Security Tools")
+        print(f"{Fore.YELLOW}    > Wireshark: Network protocol analyzer used for network troubleshooting and analysis.")
+        print(f"{Fore.YELLOW}    > Nmap: Network scanner for discovering hosts and services on a network.")
+        print(f"{Fore.YELLOW}    > Snort: Open-source intrusion detection system (IDS) for monitoring network traffic.")
+        print(f"{Fore.YELLOW}    > TCPdump: Command-line packet analyzer for capturing and analyzing network packets.")
+
+    def show_vulnerability_assessment_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Vulnerability Assessment Tools")
+        print(f"{Fore.YELLOW}    > Nessus: Vulnerability scanner for identifying vulnerabilities in systems and applications.")
+        print(f"{Fore.YELLOW}    > OpenVAS: Open-source vulnerability scanner for assessing security vulnerabilities.")
+        print(f"{Fore.YELLOW}    > Qualys: Cloud-based security and compliance solutions, including vulnerability scanning.")
+
+    def show_penetration_testing_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Penetration Testing Tools")
+        print(f"{Fore.YELLOW}    > Metasploit: Penetration testing framework for exploiting vulnerabilities in systems.")
+        print(f"{Fore.YELLOW}    > Burp Suite: Web application security testing tool for finding and exploiting vulnerabilities.")
+        print(f"{Fore.YELLOW}    > OWASP ZAP: Open-source web application security scanner for finding security vulnerabilities.")
+
+    def show_malware_analysis_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Malware Analysis Tools")
+        print(f"{Fore.YELLOW}    > Cuckoo Sandbox: Automated malware analysis system for analyzing suspicious files.")
+        print(f"{Fore.YELLOW}    > IDA Pro: Disassembler and debugger for reverse engineering and analyzing malware.")
+        print(f"{Fore.YELLOW}    > VirusTotal: Online service for scanning files and URLs for malware using multiple antivirus engines.")
+
+    def show_endpoint_security_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Endpoint Security Tools")
+        print(f"{Fore.YELLOW}    > Symantec Endpoint Protection: Antivirus and anti-malware solution for endpoint security.")
+        print(f"{Fore.YELLOW}    > McAfee Total Protection: Comprehensive security solution for endpoints.")
+        print(f"{Fore.YELLOW}    > CrowdStrike Falcon: Cloud-delivered endpoint protection platform with threat intelligence.")
+
+    def show_siem_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}SIEM Tools")
+        print(f"{Fore.YELLOW}    > Splunk: Data analysis tool for searching, monitoring, and analyzing machine-generated data.")
+        print(f"{Fore.YELLOW}    > ELK Stack (Elasticsearch, Logstash, Kibana): Open-source log management and analysis platform.")
+        print(f"{Fore.YELLOW}    > IBM QRadar: SIEM solution for identifying and prioritizing security threats.")
+
+    def show_identity_management_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Identity and Access Management Tools")
+        print(f"{Fore.YELLOW}    > Okta: Identity management service for secure user authentication.")
+        print(f"{Fore.YELLOW}    > Microsoft Azure Active Directory: Cloud-based identity and access management service.")
+        print(f"{Fore.YELLOW}    > Ping Identity: Identity security solution for managing user identities and access.")
+
+    def show_dlp_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Data Loss Prevention (DLP) Tools")
+        print(f"{Fore.YELLOW}    > Symantec Data Loss Prevention: Tool for preventing data breaches and loss of sensitive information.")
+        print(f"{Fore.YELLOW}    > Digital Guardian: DLP solution for monitoring and protecting sensitive data.")
+        print(f"{Fore.YELLOW}    > Forcepoint DLP: Data protection solution for securing sensitive data across endpoints and networks.")
+
+    def show_web_security_tools():
+        print(f"{Fore.BLUE}{Style.BRIGHT}Web Application Security Tools")
+        print(f"{Fore.YELLOW}    > Snyk: Developer-first security tool for finding and fixing vulnerabilities in code and dependencies.")
+        print(f"{Fore.YELLOW}    > Arachni: Web application security scanner for detecting security issues in web applications.")
+        print(f"{Fore.YELLOW}    > Acunetix: Automated web application security scanner for finding vulnerabilities.")
+
+
     def main():
         while True:
             clear_console()
@@ -167,9 +234,57 @@ def help():
                 print(" ")
                 print(f"{Fore.CYAN}{'-'*90}")
 
+            elif option == '8':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_network_security_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
+            elif option == '9':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_vulnerability_assessment_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
+            elif option == '10':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_penetration_testing_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
+            elif option == '11':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_malware_analysis_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
+            elif option == '12':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_endpoint_security_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
+            elif option == '13':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_siem_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+
+            elif option == '14':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_dlp_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+
+            elif option == '15':
+                print(f"{Fore.CYAN}{'-'*90}")
+                show_web_security_tools()
+                print(" ")
+                print(f"{Fore.CYAN}{'-'*90}")
+            
             elif option == '99':
                 print(f"{Fore.RED}{Style.BRIGHT}Exiting the program. Goodbye!")
-                break
+            
             else:
                 print(f"{Fore.RED}Invalid choice. Please try again.")
 
