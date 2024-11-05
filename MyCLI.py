@@ -115,15 +115,15 @@ def process_command(cmd):
 
     elif cmd in ["h", "madad", "help"]:
         help()
-        print("-----------------------------------------------------")
+        print("-"*90)
 
     elif cmd in ["showcmd", "ls", "show", "option"]:
         show_all_commands()
-        print("-----------------------------------------------------")
+        print("-"*90)
 
     elif cmd in ["1", "wifi"]:
         show_wifi_commands()
-        print("-----------------------------------------------------")
+        print("-"*90)
 
     elif cmd in ["2", "subdomainfinder"]:
         print(f"  {Fore.LIGHTMAGENTA_EX}Running Sub Domain Finder...!{Style.RESET_ALL}")
@@ -137,16 +137,17 @@ def process_command(cmd):
         print(f"  {Fore.LIGHTMAGENTA_EX}Running Wi-Fi jammer script...!{Style.RESET_ALL}")
         run_wifi_jammer()
 
-    elif cmd in ["clear", "clr"]:
+    elif cmd in ["clear", "clr" , "l"]:
         os.system("cls" if os.name == "nt" else "clear")
 
-    elif cmd in ["exit", "quit"]:
-        print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
+    elif cmd in ["exit", "quit", "tata"]:
+        print(f"{Fore.CYAN}--------------------------------------------------{Style.RESET_ALL}")
         print(f"{Fore.CYAN}Thank you for using the Cybersecurity Command Tool!{Style.RESET_ALL}")
-        print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}--------------------------------------------------{Style.RESET_ALL}")
         print(f"{Fore.CYAN}Kushal Pipalya | {Fore.BLUE}https://github.com/Kushal129/{Style.RESET_ALL}")
-        print(f"{Fore.CYAN}------------------------------------------------{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}--------------------------------------------------{Style.RESET_ALL}")
         sys.exit()
+        
     else:
         print(f"  {Fore.RED}Unknown command try again..!{Style.RESET_ALL}")
 
